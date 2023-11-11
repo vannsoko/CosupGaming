@@ -54,10 +54,10 @@ def word_noun():
     word_generated: str = random.choice(word_list)
     print(word_generated)
     word_generated_length: int = len(word_generated)
-    word_generated_letters_all: List[str] = [
+    word_generated_letters_all: list[str] = [
         word_generated[i] for i in range(len(word_generated))
     ]
-    word_generated_letters: List[str] = list(set(word_generated_letters_all))
+    word_generated_letters: list[str] = list(set(word_generated_letters_all))
     return word_generated, word_generated_letters_all, word_generated_letters, word_generated_length
 
 
@@ -136,8 +136,8 @@ def rematch():
     if play_again_input == "yes":
         local_player_error: int = 0
         local_word_found: bool = False
-        local_found_letters: List[str] = []
-        local_try_letters: List[str] = []
+        local_found_letters: list[str] = []
+        local_try_letters: list[str] = []
         return local_player_error, local_word_found, local_found_letters, local_try_letters
     elif play_again_input == "no":
         sys.exit()
