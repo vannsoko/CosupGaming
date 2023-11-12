@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+
+__author__ = 'Konstantin Vannson'
+
 import sys
 import random
 import pygame
@@ -124,7 +128,7 @@ class Game:
         if self.board.squares[0][0] == self.board.squares[1][1] == self.board.squares[2][2] != 0:
             pygame.draw.line(screen, color, (0, 0), (WIDTH, HEIGHT), LINE_WIDTH)
             return True
-
+        # Diagonal
         if self.board.squares[0][2] == self.board.squares[1][1] == self.board.squares[2][0] != 0:
             pygame.draw.line(screen, color, (WIDTH, 0), (0, HEIGHT), LINE_WIDTH)
             return True
@@ -135,7 +139,7 @@ class Game:
     def reset(self) -> None:
         self.__init__()
 
-    def handle_event(self, events) -> None:
+    def handle_events(self, events) -> None:
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -162,7 +166,7 @@ def main() -> None:
         pygame.time.Clock().tick(60)
         if game.is_game_over():
             game.is_a_winner()
-        game.handle_event(pygame.event.get())
+        game.handle_events(pygame.event.get())
 
         pygame.display.flip()
 
