@@ -2,31 +2,33 @@
 
 __author__ = 'Konstantin Vannson'
 
-import sys
 import random
 import pygame
+import sys
+
 
 # CONSTANTS
 
-WIDTH: int = 600
 HEIGHT: int = 600
+WIDTH: int = 600
 
 ROWS: int = 3
 COLS: int = 3
+
 SQSIZE: int = WIDTH // COLS
 
-LINE_WIDTH: int = 15
-CIRC_WIDTH: int = 15
 CROSS_WIDTH: int = 20
+CIRC_WIDTH: int = 15
+LINE_WIDTH: int = 15
 
 RADIUS: int = SQSIZE // 4
 
 OFFSET: int = 50
 
-BG_COLOR: tuple = (28, 170, 156)
-LINE_COLOR: tuple = (23, 145, 135)
 CIRC_COLOR: tuple = (239, 231, 200)
+LINE_COLOR: tuple = (23, 145, 135)
 CROSS_COLOR: tuple = (66, 66, 66)
+BG_COLOR: tuple = (28, 170, 156)
 
 # Pygame setup
 pygame.init()
