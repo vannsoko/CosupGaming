@@ -8,7 +8,7 @@ from shutil import move
 from time import sleep
 import os
 
-# full path Mac like /Users/konstantin/Downloads
+# full path for Mac like /Users/user_name/Downloads
 source_dir = ''
 image_dir = ''
 video_dir = ''
