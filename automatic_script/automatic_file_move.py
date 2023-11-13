@@ -14,16 +14,25 @@ image_dir = ''
 video_dir = ''
 audio_dir = ''
 document_dir = ''
-trash_dir = ''
+other_dir = ''
 
-image_extensions = [".jpg", ".jpeg", ".jpe", ".jif", ".jfif", ".jfi", ".png", ".gif", ".webp", ".tiff", ".tif", ".psd",
-                    ".raw", ".arw", ".cr2", ".nrw", ".k25", ".bmp", ".dib", ".heif", ".heic", ".ind", ".indd", ".indt",
-                    ".jp2", ".j2k", ".jpf", ".jpf", ".jpx", ".jpm", ".mj2", ".svg", ".svgz", ".ai", ".eps", ".ico"]
-video_extensions = [".webm", ".mpg", ".mp2", ".mpeg", ".mpe", ".mpv", ".ogg",
-                    ".mp4", ".mp4v", ".m4v", ".avi", ".wmv", ".mov", ".qt", ".flv", ".swf", ".avchd"]
-audio_extensions = [".m4a", ".flac", ".mp3", ".wav", ".wma", ".aac"]
-document_extensions = [".doc", ".docx", ".odt",
-                       ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"]
+file_extensions = {
+    ".jpg": image_dir, ".jpeg": image_dir, ".jpe": image_dir, ".jif": image_dir, ".jfif": image_dir, ".jfi": image_dir,
+    ".png": image_dir, ".gif": image_dir, ".webp": image_dir, ".tiff": image_dir, ".tif": image_dir, ".psd": image_dir,
+    ".raw": image_dir, ".arw": image_dir, ".cr2": image_dir, ".nrw": image_dir, ".k25": image_dir, ".bmp": image_dir,
+    ".dib": image_dir, ".heif": image_dir, ".heic": image_dir, ".ind": image_dir, ".indd": image_dir, ".indt": image_dir,
+    ".jp2": image_dir, ".j2k": image_dir, ".jpf": image_dir, ".jpx": image_dir, ".jpm": image_dir, ".mj2": image_dir,
+    ".svg": image_dir, ".svgz": image_dir, ".ai": image_dir, ".eps": image_dir, ".ico": image_dir,
+    
+    ".webm": video_dir, ".mpg": video_dir, ".mp2": video_dir, ".mpeg": video_dir, ".mpe": video_dir, ".mpv": video_dir,
+    ".ogg": video_dir, ".mp4": video_dir, ".mp4v": video_dir, ".m4v": video_dir, ".avi": video_dir, ".wmv": video_dir,
+    ".mov": video_dir, ".qt": video_dir, ".flv": video_dir, ".swf": video_dir, ".avchd": video_dir,
+    
+    ".m4a": audio_dir, ".flac": audio_dir, ".mp3": audio_dir, ".wav": audio_dir, ".wma": audio_dir, ".aac": audio_dir,
+    
+    ".doc": document_dir, ".docx": document_dir, ".odt": document_dir, ".pdf": document_dir, ".xls": document_dir,
+    ".xlsx": document_dir, ".ppt": document_dir, ".pptx": document_dir
+}
 
 
 class MyHandler(FileSystemEventHandler):
@@ -33,27 +42,11 @@ class MyHandler(FileSystemEventHandler):
             return None
         filename, extension = os.path.splitext(file)
         extension = extension.lower()
-
-        if extension in image_extensions:
-            self.change_dir(event, 'image')
-        elif extension in video_extensions:
-            self.change_dir(event, 'video')
-        elif extension in audio_extensions:
-            self.change_dir(event, 'audio')
-        elif extension in document_extensions:
-            self.change_dir(event, 'document')
-        else:
-            self.change_dir(event, 'trash')
+        self.change_dir(event, extension)
 
     @staticmethod
-    def change_dir(event, file_type: str):
-        end_path_without_file = (
-            image_dir if file_type == 'image' else
-            video_dir if file_type == 'video' else
-            audio_dir if file_type == 'audio' else
-            document_dir if file_type == 'document' else
-            trash_dir
-        )
+    def change_dir(event, extension: str):
+        end_path_without_file = file_extensions.get(extension, other_dir)
         base_filename, file_extension = os.path.splitext(os.path.basename(event.src_path))
         end_file_path = os.path.join(end_path_without_file, f'{base_filename}{file_extension}')
 
